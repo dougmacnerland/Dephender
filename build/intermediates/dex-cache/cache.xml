@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\Doug\Coding\AndroidstudioProjects\Dephender\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\8.1.0\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="997773777cf3904c11d6764fe3b7668538220e49">
+        <dex dex="C:\Users\Doug\Coding\AndroidstudioProjects\Dephender\app\build\intermediates\pre-dexed\debug\classes-5bd706d7863d0b4b74bd70b6260fce6796fcc6c5.jar" />
+    </item>
+    <item
+        jar="C:\Users\Doug\Coding\AndroidstudioProjects\Dephender\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.0.0\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d84409890828e07d344a3b9b1da545dba9897b51">
+        <dex dex="C:\Users\Doug\Coding\AndroidstudioProjects\Dephender\app\build\intermediates\pre-dexed\debug\classes-77c09ba66d9197f0e2638229ab9191df35a6b26f.jar" />
+    </item>
+    <item
+        jar="C:\Users\Doug\Coding\AndroidstudioProjects\Dephender\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\8.1.0\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="4477ea44f5ec5ad064022a22691732d7638ff197">
+        <dex dex="C:\Users\Doug\Coding\AndroidstudioProjects\Dephender\app\build\intermediates\pre-dexed\debug\classes-a79236938739fcb57f346d77c50d043f2a155940.jar" />
+    </item>
+    <item
+        jar="C:\Users\Doug\Coding\AndroidstudioProjects\Dephender\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="C:\Users\Doug\Coding\AndroidstudioProjects\Dephender\app\build\intermediates\pre-dexed\debug\classes-8429195ca53a144827cb8f378e5c66591442ca3d.jar" />
+    </item>
+    <item
+        jar="C:\Users\Doug\Coding\AndroidstudioProjects\Dephender\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\libs\internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="C:\Users\Doug\Coding\AndroidstudioProjects\Dephender\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-210c3e2ef1c141a0d2c60cd8f3715a140962507a.jar" />
+    </item>
+    <item
+        jar="C:\Users\Doug\Coding\AndroidstudioProjects\Dephender\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.1.0\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d0dda274b703dd9c5bb056867649d22b4171ae7d">
+        <dex dex="C:\Users\Doug\Coding\AndroidstudioProjects\Dephender\app\build\intermediates\pre-dexed\debug\classes-e4f3278758e5f2ec3e2db2de6490b258e64c2648.jar" />
+    </item>
+    <item
+        jar="C:\Users\Doug\Documents\Programming\adt-bundle-windows-x86_64-20140702\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.0\support-annotations-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
+        <dex dex="C:\Users\Doug\Coding\AndroidstudioProjects\Dephender\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.0-9a5f3b3cc62ec0e2e9565bad0a20cd4ab4cc538e.jar" />
+    </item>
+
+</items>

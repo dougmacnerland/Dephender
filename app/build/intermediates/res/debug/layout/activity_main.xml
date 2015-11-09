@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="0dp"
+    android:id="@+id/game"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    android:paddingBottom="0dp" tools:context=".Main">
+
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/gadView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="@string/ad_unit_id">
+    </com.google.android.gms.ads.AdView>
+
+    <me.macnerland.dephender.MenuSurface
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/mSurfaceView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/gadView"/>
+
+</RelativeLayout>
+<!-- From: file:/C:/Users/Doug/Coding/AndroidstudioProjects/Dephender/app/src/main/res/layout/activity_main.xml -->
