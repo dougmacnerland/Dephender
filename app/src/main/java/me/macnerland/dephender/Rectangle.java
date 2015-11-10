@@ -401,7 +401,7 @@ public class Rectangle {
             color.put((i * 4) + 1, colorG);
             color.put((i * 4) + 2, colorB);
             color.put((i * 4) + 3, 1.0f);*/
-        }
+
     }
 
     /*Each corner's color is changed by changeR, changeG
@@ -432,13 +432,11 @@ public class Rectangle {
     /*Return true if the specified x and y are xDist and yDist
  *   from*/
     public boolean isWithin(float x, float y, float xDist, float yDist){
-        if((x >= vertices.get(0)-xDist)&&
-	(x <= vertices.get(3)+xDist)&&
-	(y >= vertices.get(1)-yDist)&&
-	(y <= vertices.get(10)+yDist)){
-            return true;
-        }
-        return false;
+        /*simpler*/
+        return (x >= vertices.get(0) - xDist) &&
+                (x <= vertices.get(3) + xDist) &&
+                (y >= vertices.get(1) - yDist) &&
+                (y <= vertices.get(10) + yDist);
     }
     
     /*Updates the center of the Rectangle*/
