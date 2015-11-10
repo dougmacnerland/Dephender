@@ -21,8 +21,6 @@ public class Attacker extends Rectangle {
     public long fadeBirth;
     public float frequency;
 
-    //coloration will change the color of the square. 0=white 1=texture 2=Solid color
-    //3=soft color
     Attacker(int program, float left_, float right_, float top_, float bottom_, float sizeRatio, int coloration, int tex){
         super(program, new float[]{-1.0f, -1.0f, -1.0f,
                 1.0f, -1.0f, -1.0f,
@@ -35,11 +33,10 @@ public class Attacker extends Rectangle {
         left=left_;
         moveOffset = 0.0f;
         genCoords();
-
-
         birthTime = SystemClock.uptimeMillis();
     }
 
+    /*move depending on the movetype*/
     public void move(float speed, float toX, float toY){
         switch(moveType){
             case 1:
@@ -57,6 +54,7 @@ public class Attacker extends Rectangle {
         }
     }
 
+    /*Move directly towards the target*/
     public void moveLinear(float speed, float toX, float toY){
         long now = SystemClock.uptimeMillis();
         long timeDiff = now-birthTime;
@@ -91,7 +89,9 @@ public class Attacker extends Rectangle {
             distX = ((float) Math.cos(theta)) * distance * (signX * -1.0f)*right;
         }
         moveTo(centerX+distX, centerY+distY);
-    }//move directly to the target
+    }
+
+    /*move back and forth towards the object*/
     public void moveAlt(float speed, float toX, float toY){
         long now = SystemClock.uptimeMillis();
         long timeDiff = now-birthTime;
@@ -128,7 +128,9 @@ public class Attacker extends Rectangle {
             distX = (0.75f*distX+distX*(float)Math.sin((now / 128.0f) + moveOffset))*right;
         }
         moveTo(centerX+distX, centerY+distY);
-    }//move while adding the sine of time plus some offset
+    }
+
+    /*move while adding the sine of time plus some offset*/
     public void moveSideAlt(float speed, float toX, float toY) {
         long now = SystemClock.uptimeMillis();
         long timeDiff = now - birthTime;
@@ -164,26 +166,17 @@ public class Attacker extends Rectangle {
         }
         moveTo(centerX + distX, centerY + distY);
     }
+
+    /*move in a constant spiral inwards towards the target*/
     public void moveCircle(float speed, float toX, float toY){
-        /*if(moveOffset == 0.0f){
-            if(centerX==0.0f){
-                moveOffset = 0;
-            }else {
-                moveOffset = (float)Math.atan((centerY-toY)/(centerX-toX));
-            }
-        }*/
         long now = SystemClock.uptimeMillis();
         long timeDiff = now-birthTime;
-        //birthTime=now;
-
         float X = (float)(toX+(radius/(timeDiff*0.001f))*Math.cos((speed*timeDiff*5.0f)+moveOffset));
         float Y = (float)(toY+(radius/(timeDiff*0.001f))*Math.sin((speed*timeDiff*5.0f)+moveOffset));
         moveTo(X, Y);
-
-
-
     }
 
+    /*initialize the movement of the object*/
     public void moveInit(float toX, float toY){
         switch(moveType){
             case 1:
@@ -203,19 +196,23 @@ public class Attacker extends Rectangle {
         }
     }
 
+    /*Attacker will fade in given a speed*/
     public void fadeIn(float toX, float toY, float surprise, float revealDist){
-        //float alpha = (float)(1.0f/(1.0f+Math.exp(-1.0*frequency*((SystemClock.uptimeMillis()-fadeBirth-surprise)-midTimeMillis))));
         float rad = (float)Math.sqrt(((centerX-toX)*(centerX-toX))+((centerY-toY)*(centerY-toY)));
         float alpha = (float)(1.0f/(1.0f+Math.exp(-1.0*surprise*((1/rad)-(1/revealDist)))));
         for(int i=0; i<4; i++){
             color.put(((i*4)+3), alpha);
         }
     }
+
+    /*Attacker will flash a speed at a frequency*/
     public void fadeBlink(){
         for(int i=0; i<4; i++){
             color.put(((i*4)+3), (float)Math.abs(Math.sin(frequency*0.02*SystemClock.uptimeMillis())));
         }
     }
+
+    /*Attacker will disappear at a certain revealDist, with a speed of surprise*/
     public void fadeOut(float toX, float toY, float surprise, float revealDist){
         float rad = (float)Math.sqrt(((centerX-toX)*(centerX-toX))+((centerY-toY)*(centerY-toY)));
         float alpha = (float)(1.0f-(1.0f/(1.0f+Math.exp(-1.0*surprise*((1/rad)-(1/revealDist))))));
@@ -223,12 +220,15 @@ public class Attacker extends Rectangle {
             color.put(((i * 4) + 3), alpha);
         }
     }
+
+    /*Return the Attacker to completely opaque*/
     public void fadeReset(){
         for(int i=0; i<4; i++) {
             color.put(((i * 4) + 3), 1.0f);
         }
     }
 
+    /*Fade the Attacker*/
     public void fade(float toX, float toY, float surprise, float revealDist){
         switch(fadeType){
             case 4:
@@ -243,6 +243,7 @@ public class Attacker extends Rectangle {
         }
     }
 
+    /*Initialize the fade abilities of the attacker*/
     public void fadeInit(float toX, float toY){
         switch(fadeType){
             case 4:
@@ -256,9 +257,12 @@ public class Attacker extends Rectangle {
         }
     }
 
+    /*reset the birthtime of the Attacker*/
     public void resetBirth(){
         birthTime = SystemClock.uptimeMillis();
     }
+
+    /*Generate new coordinates for the attacker*/
     public void genCoords(){
         float size;
         if(right>1){
@@ -267,7 +271,7 @@ public class Attacker extends Rectangle {
             size=ratio/(right*right);
         }
 
-        float screenY = ((top-bottom)+size);//length of the Y dim
+        float screenY = ((top-bottom)+size);
         float screenX = ((right-left)+size);
 
 
