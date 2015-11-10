@@ -440,6 +440,8 @@ public class Rectangle {
         }
         return false;
     }
+    
+    /*Updates the center of the Rectangle*/
     public void setCenter(){
         float center = 0.0f;
         for(int i = 0; i < 4; i++){
