@@ -22,8 +22,6 @@ public class MenuRenderer implements GLSurfaceView.Renderer{
     private float[] mMVPMatrix = new float[16];//Model, View, Projection matrix
 
     private int programHandle;
-
-
     private static Attacker[] invader = new Attacker[10];
     private static Rectangle back;//do these need to be static?
     private static Rectangle newGame;

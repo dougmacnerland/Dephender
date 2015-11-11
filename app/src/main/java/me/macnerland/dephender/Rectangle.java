@@ -1,10 +1,6 @@
 package me.macnerland.dephender;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.opengl.GLES20;
-import android.opengl.GLUtils;
 import android.opengl.Matrix;
 
 import java.nio.ByteBuffer;
@@ -50,8 +46,8 @@ public class Rectangle {
     protected FloatBuffer color;
     protected ShortBuffer indices;
 
-    /*uvs specifies texture to object transformation*/
-    public FloatBuffer uvs;
+    /*uv specifies texture to object transformation*/
+    public FloatBuffer uv;
 
     /*used for the shimmer function*/
     private float colorConstR;
@@ -129,9 +125,9 @@ public class Rectangle {
                 1.0f, 0.0f,
                 0.0f, 0.0f
         };
-        uvs = ByteBuffer.allocateDirect(uvCoord.length * 4)
+        uv = ByteBuffer.allocateDirect(uvCoord.length * 4)
                 .order(ByteOrder.nativeOrder()).asFloatBuffer();
-        uvs.put(uvCoord).position(0);
+        uv.put(uvCoord).position(0);
     }
 
     /*Specify the program, vertices in counter-clockwise order starting at the lower left,
@@ -171,9 +167,9 @@ public class Rectangle {
                 1.0f, 0.0f,
                 0.0f, 0.0f
         };
-        uvs = ByteBuffer.allocateDirect(uvCoord.length * 4)
+        uv = ByteBuffer.allocateDirect(uvCoord.length * 4)
                 .order(ByteOrder.nativeOrder()).asFloatBuffer();
-        uvs.put(uvCoord).position(0);
+        uv.put(uvCoord).position(0);
 
         switch(coloration){
             case 0:
@@ -228,9 +224,9 @@ public class Rectangle {
                 1.0f, 0.0f,
                 0.0f, 0.0f
         };
-        uvs = ByteBuffer.allocateDirect(uvCoord.length * 4)
+        uv = ByteBuffer.allocateDirect(uvCoord.length * 4)
                 .order(ByteOrder.nativeOrder()).asFloatBuffer();
-        uvs.put(uvCoord).position(0);
+        uv.put(uvCoord).position(0);
         colorSolid(1.0f, 1.0f, 1.0f, 1.0f);//specifies values for texturization
         colorConstR = 1.0f;
         colorConstG = 1.0f;
@@ -276,9 +272,9 @@ public class Rectangle {
                 1.0f, 0.0f,
                 0.0f, 0.0f
         };
-        uvs = ByteBuffer.allocateDirect(uvCoord.length * 4)
+        uv = ByteBuffer.allocateDirect(uvCoord.length * 4)
                 .order(ByteOrder.nativeOrder()).asFloatBuffer();
-        uvs.put(uvCoord).position(0);
+        uv.put(uvCoord).position(0);
         colorSolid(1.0f, 1.0f, 1.0f, 1.0f);//specifies values for texturization
         colorConstR = 1.0f;
         colorConstG = 1.0f;
@@ -304,8 +300,8 @@ public class Rectangle {
         GLES20.glVertexAttribPointer(ColorHandle, 4, GLES20.GL_FLOAT, true,
                 0, this.color);
         GLES20.glEnableVertexAttribArray(ColorHandle);
-        this.uvs.position(0);
-        GLES20.glVertexAttribPointer(TextureCoordinateHandle, 2, GLES20.GL_FLOAT, true, 0, this.uvs);
+        this.uv.position(0);
+        GLES20.glVertexAttribPointer(TextureCoordinateHandle, 2, GLES20.GL_FLOAT, true, 0, this.uv);
         GLES20.glEnableVertexAttribArray(TextureCoordinateHandle);
 
         // This multiplies the view matrix by the model matrix, and stores the result in the MVP matrix

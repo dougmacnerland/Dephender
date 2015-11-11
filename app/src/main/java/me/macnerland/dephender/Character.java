@@ -36,14 +36,14 @@ public class Character extends Rectangle{
     public void findTile(){
         float xCoord = (((int)(c))%16);
         float yCoord = ((((int)(c))/16)-1.0f);
-        uvs.put(0, (xCoord)*StepSize);
-        uvs.put(1, (yCoord+1)*StepSize);
-        uvs.put(2, (xCoord+1)*StepSize);
-        uvs.put(3, (yCoord+1)*StepSize);
-        uvs.put(4, (xCoord+1)*StepSize);
-        uvs.put(5, (yCoord)*StepSize);
-        uvs.put(6, (xCoord)*StepSize);
-        uvs.put(7, (yCoord)*StepSize);
+        uv.put(0, (xCoord)*StepSize);
+        uv.put(1, (yCoord+1)*StepSize);
+        uv.put(2, (xCoord+1)*StepSize);
+        uv.put(3, (yCoord+1)*StepSize);
+        uv.put(4, (xCoord+1)*StepSize);
+        uv.put(5, (yCoord)*StepSize);
+        uv.put(6, (xCoord)*StepSize);
+        uv.put(7, (yCoord)*StepSize);
     }
 
     /*change to a new character*/
