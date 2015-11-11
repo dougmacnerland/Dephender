@@ -291,7 +291,7 @@ public class Rectangle {
         GLES20.glUniform1i(TextureUniformHandle, 0);
         GLES20.glEnableVertexAttribArray(TextureCoordinateHandle);
         
-	/*Start at the beginiing of the Buffer*/
+	/*Start at the begining of the Buffer*/
 	this.vertices.position(0);
         GLES20.glVertexAttribPointer(PositionHandle, 3, GLES20.GL_FLOAT, true,
                 0, this.vertices);

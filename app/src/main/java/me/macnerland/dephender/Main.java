@@ -3,7 +3,6 @@ package me.macnerland.dephender;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.ConfigurationInfo;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -25,14 +24,13 @@ public class Main extends Activity {
     protected void onCreate (Bundle savedInstanceState) {
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        SharedPreferences pref = this.getPreferences(MODE_PRIVATE);
         
         /*Create an activity*/
         super.onCreate(savedInstanceState);
 	
 	/*Initialize OpenGLES renderer
  * 	with variables Activity and SharedPreferences*/
-        menu = new MenuRenderer(this, pref);
+        menu = new MenuRenderer(this);
 
         /*Request fullscreen, cull menu bar*/
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -64,7 +62,8 @@ public class Main extends Activity {
         if (supportsEs2)
         {
             glSurfaceView.setEGLContextClientVersion(2);
-            glSurfaceView.setRenderer(menu);//It is wicked important to do this here!!!!!!
+            glSurfaceView.setRenderer(menu);//It is important to do this here!
+            /*Add in the touch interface*/
             glSurfaceView.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent e) {

@@ -15,7 +15,8 @@ public class Gleshelp {
         GLES20.glGenTextures(1, textureHandle, 0);
 
         BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inScaled = false; //openGL will not pre-scale
+        /*stop opengl from scaling*/
+        options.inScaled = false;
 
         Bitmap bit = BitmapFactory.decodeResource(c.getResources(), res, options);
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureHandle[0]);

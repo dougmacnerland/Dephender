@@ -58,10 +58,10 @@ public class MenuRenderer implements GLSurfaceView.Renderer{
     private float nRatio;
     private Context cont;
 
-    public MenuRenderer(Context c, SharedPreferences sh){
+    public MenuRenderer(Context c){
+        pref = c.getSharedPreferences("score", 0);
         cont = c;
         GameState = 0;
-        pref = sh;
         high = pref.getInt("highScore", 0);
         xOsc = false;
         yOsc = false;
@@ -86,96 +86,25 @@ public class MenuRenderer implements GLSurfaceView.Renderer{
 
         final String fragmentShader = Gleshelp.getFragmentShader(1);
 
-        // Load in the vertex shader.
         int vertexShaderHandle = GLES20.glCreateShader(GLES20.GL_VERTEX_SHADER);
 
-        if (vertexShaderHandle != 0)
-        {
-            // Pass in the shader source.
-            GLES20.glShaderSource(vertexShaderHandle, vertexShader);
+        GLES20.glShaderSource(vertexShaderHandle, vertexShader);
+        GLES20.glCompileShader(vertexShaderHandle);
 
-            // Compile the shader.
-            GLES20.glCompileShader(vertexShaderHandle);
-
-            // Get the compilation status.
-            final int[] compileStatus = new int[1];
-            GLES20.glGetShaderiv(vertexShaderHandle, GLES20.GL_COMPILE_STATUS, compileStatus, 0);
-
-            // If the compilation failed, delete the shader.
-            if (compileStatus[0] == 0)
-            {
-                GLES20.glDeleteShader(vertexShaderHandle);
-                vertexShaderHandle = 0;
-            }
-        }
-
-        if (vertexShaderHandle == 0)
-        {
-            throw new RuntimeException("Error creating vertex shader.");
-        }
-
-        // Load in the fragment shader shader.
         int fragmentShaderHandle = GLES20.glCreateShader(GLES20.GL_FRAGMENT_SHADER);
 
-        if (fragmentShaderHandle != 0)
-        {
-            // Pass in the shader source.
-            GLES20.glShaderSource(fragmentShaderHandle, fragmentShader);
+        GLES20.glShaderSource(fragmentShaderHandle, fragmentShader);
+        GLES20.glCompileShader(fragmentShaderHandle);
 
-            // Compile the shader.
-            GLES20.glCompileShader(fragmentShaderHandle);
 
-            // Get the compilation status.
-            final int[] compileStatus = new int[1];
-            GLES20.glGetShaderiv(fragmentShaderHandle, GLES20.GL_COMPILE_STATUS, compileStatus, 0);
-
-            // If the compilation failed, delete the shader.
-            if (compileStatus[0] == 0)
-            {
-                GLES20.glDeleteShader(fragmentShaderHandle);
-                fragmentShaderHandle = 0;
-            }
-        }
-
-        if (fragmentShaderHandle == 0)
-        {
-            throw new RuntimeException("Error creating fragment shader.");
-        }
-
-        // Create a program object and store the handle to it.
         programHandle = GLES20.glCreateProgram();
 
-        if (programHandle != 0)
-        {
-            // Bind the vertex shader to the program.
-            GLES20.glAttachShader(programHandle, vertexShaderHandle);
+        GLES20.glAttachShader(programHandle, vertexShaderHandle);
+        GLES20.glAttachShader(programHandle, fragmentShaderHandle);
 
-            // Bind the fragment shader to the program.
-            GLES20.glAttachShader(programHandle, fragmentShaderHandle);
-
-            // Bind attributes
-            GLES20.glBindAttribLocation(programHandle, 0, "a_Position");
-            GLES20.glBindAttribLocation(programHandle, 1, "a_Color");
-
-            // Link the two shaders together into a program.
-            GLES20.glLinkProgram(programHandle);
-
-            // Get the link status.
-            final int[] linkStatus = new int[1];
-            GLES20.glGetProgramiv(programHandle, GLES20.GL_LINK_STATUS, linkStatus, 0);
-            if (linkStatus[0] == 0)
-            {
-                GLES20.glDeleteProgram(programHandle);
-                programHandle = 0;
-            }
-        }
-
-        if (programHandle == 0)
-        {
-            throw new RuntimeException("Error creating program.");
-        }
-
-
+        GLES20.glBindAttribLocation(programHandle, 0, "a_Position");
+        GLES20.glBindAttribLocation(programHandle, 1, "a_Color");
+        GLES20.glLinkProgram(programHandle);
 
         // Tell OpenGL to use this program when rendering.
         GLES20.glUseProgram(programHandle);
@@ -191,11 +120,7 @@ public class MenuRenderer implements GLSurfaceView.Renderer{
 
     @Override
     public void onSurfaceChanged(GL10 glUnused, int width, int height){
-        // Set the OpenGL viewport to the same size as the surface.
         GLES20.glViewport(0, 0, width, height);
-
-        // Create a new perspective projection matrix. The height will stay the same
-        // while the width will vary as per aspect ratio.
         Ratio = (float) width / height;
         nRatio = Ratio;
         if(nRatio>1.0f){
