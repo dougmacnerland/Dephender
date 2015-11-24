@@ -323,6 +323,7 @@ public class MenuRenderer implements GLSurfaceView.Renderer{
 
             case 1://active game
 
+
                 for (int i = invader.length - 1; i >= 0; i--) {
                     if ((invader[i].isWithin(x, y, 0.1f, 0.1f))) {
 
