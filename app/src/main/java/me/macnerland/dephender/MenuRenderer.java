@@ -118,7 +118,6 @@ public class MenuRenderer implements GLSurfaceView.Renderer{
         pauseButtonHandle = Gleshelp.loadTexture(cont, R.drawable.pause_a);
         pauseMenuHandle = Gleshelp.loadTexture(cont, R.drawable.paused);
     }
-
     @Override
     public void onSurfaceChanged(GL10 glUnused, int width, int height){
         GLES20.glViewport(0, 0, width, height);
@@ -221,7 +220,6 @@ public class MenuRenderer implements GLSurfaceView.Renderer{
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1);
         Matrix.orthoM(mProjectionMatrix, 0, left, right, bottom, top, near, far);
     }
-
     @Override
     public void onDrawFrame(GL10 glUnused){
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
@@ -291,7 +289,6 @@ public class MenuRenderer implements GLSurfaceView.Renderer{
 
         }
     }
-
     private float logistic(float max, float steepness, float x, float mid){
         return (float)(max/(1.0f+(Math.exp((-1.0f*steepness*(x-mid))))));
     }

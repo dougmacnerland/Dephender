@@ -4,9 +4,11 @@ import android.os.SystemClock;
 
 /**
  * Created by Doug on 8/19/2015.
+ * Object for creating an enemy
  */
 public class Attacker extends Rectangle {
 
+    private float size;
     private float ratio;
     private float left;
     private float right;
@@ -31,6 +33,11 @@ public class Attacker extends Rectangle {
         top=top_;
         right=right_;
         left=left_;
+        if(right>1){
+            size=ratio*(right*right);
+        }else{
+            size=ratio/(right*right);
+        }
         moveOffset = 0.0f;
         genCoords();
         birthTime = SystemClock.uptimeMillis();
@@ -215,7 +222,7 @@ public class Attacker extends Rectangle {
     /*Attacker will disappear at a certain revealDist, with a speed of surprise*/
     public void fadeOut(float toX, float toY, float surprise, float revealDist){
         float rad = (float)Math.sqrt(((centerX-toX)*(centerX-toX))+((centerY-toY)*(centerY-toY)));
-        float alpha = (float)(1.0f-(1.0f/(1.0f+Math.exp(-1.0*surprise*((1/rad)-(1/revealDist))))));
+        float alpha = (float)(1.0f-(1.0f/(1.0f+Math.exp(-1.0*surprise*((1/rad)-(1/(revealDist/3)))))));
         for(int i=0; i<4; i++) {
             color.put(((i * 4) + 3), alpha);
         }
@@ -264,17 +271,8 @@ public class Attacker extends Rectangle {
 
     /*Generate new coordinates for the attacker*/
     public void genCoords(){
-        float size;
-        if(right>1){
-            size=ratio*(right*right);
-        }else{
-            size=ratio/(right*right);
-        }
-
         float screenY = ((top-bottom)+size);
         float screenX = ((right-left)+size);
-
-
 
         double xOrY = Math.random();
         if(xOrY<0.5){
@@ -296,6 +294,9 @@ public class Attacker extends Rectangle {
             }
         }
         moveTo(centerX, centerY, size / 2, size / 2);
+        if(vertices.get(3) - vertices.get(0) != size){
+            moveTo(centerX, centerY, size / 2, size / 2);
+        }
         resetBirth();
     }
 }
