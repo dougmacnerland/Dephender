@@ -14,6 +14,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 /**
  * Created by Doug on 8/12/2015.
+ * This was tough to write
  */
 public class MenuRenderer implements GLSurfaceView.Renderer{
     private float[] mModelMatrix = new float[16];//Model
@@ -262,25 +263,25 @@ public class MenuRenderer implements GLSurfaceView.Renderer{
 
                 target.render(mModelMatrix, mViewMatrix, mProjectionMatrix, mMVPMatrix);
 
-                for (int i = 0; i < invader.length; i++) {
-                    if (target.isWithin(invader[i].centerX, invader[i].centerY, 0.09f, 0.09f)) {
+                for (Attacker i : invader) {
+                    if (target.isWithin(i.centerX, i.centerY, 0.09f, 0.09f)) {
                         score.reset();
                         xOsc=false;
                         yOsc=false;
                         GameState = 0;
-                        for (int j = 0; j < invader.length; j++) {
-                            invader[j].genCoords();
-                            invader[j].moveType=0;
-                            invader[j].fadeType=0;
-                            invader[j].fadeReset();
+                        for (Attacker j : invader) {
+                            j.genCoords();
+                            j.moveType=0;
+                            j.fadeType=0;
+                            j.fadeReset();
                         }
                         target.moveTo(0.0f,0.0f);
                         break;
                     } else {
                         //int moveType = (int)(Math.random()*score.getNumber()*0.015);
-                        invader[i].move(0.0001f + (0.0000001f * score.getNumber()), target.centerX, target.centerY);
-                        invader[i].fade(target.centerX, target.centerY, 50.0f, 0.75f);
-                        invader[i].render(mModelMatrix, mViewMatrix, mProjectionMatrix, mMVPMatrix);
+                        i.move(0.0001f + (0.0000001f * score.getNumber()), target.centerX, target.centerY);
+                        i.fade(target.centerX, target.centerY, 50.0f, 0.75f);
+                        i.render(mModelMatrix, mViewMatrix, mProjectionMatrix, mMVPMatrix);
                     }
                 }
                 break;
@@ -308,13 +309,13 @@ public class MenuRenderer implements GLSurfaceView.Renderer{
         e.putInt("highScore", high);
         e.commit();
     }
-    public void touch(float bx, float y) {
+    public void onTouch(float bx, float y) {
         float x = bx * Ratio;
         switch (GameState) {
             case 0://menu
                 if(newGame.isWithin(x, y, 0.0f, 0.0f)){
-                    for(int i = 0; i < invader.length; i++){
-                        invader[i].resetBirth();
+                    for(Attacker i : invader){
+                        i.resetBirth();
                     }
                     GameState = 1;
                 }

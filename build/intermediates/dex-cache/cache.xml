@@ -2,53 +2,53 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Quangxdu\Documents\GitHub\New folder\Dephender\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.1.0\jars\classes.jar"
+        jar="C:\Users\Doug\Documents\GitHub\Dephender\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.1.0\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="d0dda274b703dd9c5bb056867649d22b4171ae7d">
-        <dex dex="C:\Users\Quangxdu\Documents\GitHub\New folder\Dephender\app\build\intermediates\pre-dexed\debug\classes-85706c0d47d30347d3339cd103880ed0d382b4b9.jar" />
+        <dex dex="C:\Users\Doug\Documents\GitHub\Dephender\app\build\intermediates\pre-dexed\debug\classes-ac4dc4d7d314ed5005b19025cc704587e82c4cd1.jar" />
     </item>
     <item
-        jar="C:\Users\Quangxdu\AppData\Local\Android\sdk2\extras\android\m2repository\com\android\support\support-annotations\22.2.0\support-annotations-22.2.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
-        <dex dex="C:\Users\Quangxdu\Documents\GitHub\New folder\Dephender\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.0-462ac47bfc2bd688afd8a9c05762cbb4860d58e3.jar" />
-    </item>
-    <item
-        jar="C:\Users\Quangxdu\Documents\GitHub\New folder\Dephender\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
-        <dex dex="C:\Users\Quangxdu\Documents\GitHub\New folder\Dephender\app\build\intermediates\pre-dexed\debug\classes-c42c08da85bd4f231061feb389eb406af6de3d08.jar" />
-    </item>
-    <item
-        jar="C:\Users\Quangxdu\Documents\GitHub\New folder\Dephender\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\libs\internal_impl-22.2.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
-        <dex dex="C:\Users\Quangxdu\Documents\GitHub\New folder\Dephender\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-fb8124f35f5f165f0be5ee27008b61aaec6a786c.jar" />
-    </item>
-    <item
-        jar="C:\Users\Quangxdu\Documents\GitHub\New folder\Dephender\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.0.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="d84409890828e07d344a3b9b1da545dba9897b51">
-        <dex dex="C:\Users\Quangxdu\Documents\GitHub\New folder\Dephender\app\build\intermediates\pre-dexed\debug\classes-7c58b580fe63090a195437338756f836e7ceeac2.jar" />
-    </item>
-    <item
-        jar="C:\Users\Quangxdu\Documents\GitHub\New folder\Dephender\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\8.1.0\jars\classes.jar"
+        jar="C:\Users\Doug\Documents\GitHub\Dephender\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\8.1.0\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="4477ea44f5ec5ad064022a22691732d7638ff197">
-        <dex dex="C:\Users\Quangxdu\Documents\GitHub\New folder\Dephender\app\build\intermediates\pre-dexed\debug\classes-8af827b033cac8deeccffd7afe8eaadb4123038c.jar" />
+        <dex dex="C:\Users\Doug\Documents\GitHub\Dephender\app\build\intermediates\pre-dexed\debug\classes-2c3cff018bb3f0596b42ba417c52d5b9df329e6c.jar" />
     </item>
     <item
-        jar="C:\Users\Quangxdu\Documents\GitHub\New folder\Dephender\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\8.1.0\jars\classes.jar"
+        jar="E:\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.0\support-annotations-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
+        <dex dex="C:\Users\Doug\Documents\GitHub\Dephender\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.0-e2315d1b4130b9994f0a06fbbdeb35471a3d426b.jar" />
+    </item>
+    <item
+        jar="C:\Users\Doug\Documents\GitHub\Dephender\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\libs\internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="C:\Users\Doug\Documents\GitHub\Dephender\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-a24f143dd1874c64135d70582835630f31d74088.jar" />
+    </item>
+    <item
+        jar="C:\Users\Doug\Documents\GitHub\Dephender\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\8.1.0\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="997773777cf3904c11d6764fe3b7668538220e49">
-        <dex dex="C:\Users\Quangxdu\Documents\GitHub\New folder\Dephender\app\build\intermediates\pre-dexed\debug\classes-7cc714bbf46db61b1f5b72896e84ae417cb8d03d.jar" />
+        <dex dex="C:\Users\Doug\Documents\GitHub\Dephender\app\build\intermediates\pre-dexed\debug\classes-51a8f1281cbcf8131ad41fd58550b91576ff55ff.jar" />
+    </item>
+    <item
+        jar="C:\Users\Doug\Documents\GitHub\Dephender\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d84409890828e07d344a3b9b1da545dba9897b51">
+        <dex dex="C:\Users\Doug\Documents\GitHub\Dephender\app\build\intermediates\pre-dexed\debug\classes-6977d43663d4a86fd7c9ac901ed26330e90374dc.jar" />
+    </item>
+    <item
+        jar="C:\Users\Doug\Documents\GitHub\Dephender\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="C:\Users\Doug\Documents\GitHub\Dephender\app\build\intermediates\pre-dexed\debug\classes-7be9ffcc51a69c54238fb504f6dd84b1bf678609.jar" />
     </item>
 
 </items>

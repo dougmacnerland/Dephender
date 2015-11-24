@@ -16,8 +16,6 @@ import com.google.android.gms.ads.AdView;
 
 public class Main extends Activity {
     private MenuSurface glSurfaceView;
-    private MenuRenderer menu;
-
 
     /*When the program is first run, the Activity is initialized*/
     @Override
@@ -27,10 +25,6 @@ public class Main extends Activity {
         
         /*Create an activity*/
         super.onCreate(savedInstanceState);
-	
-	/*Initialize OpenGLES renderer
- * 	with variables Activity and SharedPreferences*/
-        menu = new MenuRenderer(this);
 
         /*Request fullscreen, cull menu bar*/
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -42,7 +36,7 @@ public class Main extends Activity {
 
 	/*Initialize new AdView, mAdview, from the gadView ID in the
  * 	activity_main layout*/
-        AdView mAdView= (AdView) findViewById(R.id.gadView);
+        AdView mAdView = (AdView) findViewById(R.id.gadView);
         
         /*Request an ad*/
 	/*Actual deployment*/
@@ -54,41 +48,12 @@ public class Main extends Activity {
 	/*Load the request into the ad*/
         mAdView.loadAd(adRequest);
 
-        //glSurfaceView = new MenuSurface(this);
         glSurfaceView = (MenuSurface)findViewById(R.id.mSurfaceView);
-        final ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        final ConfigurationInfo configurationInfo = activityManager.getDeviceConfigurationInfo();
-        final boolean supportsEs2 = configurationInfo.reqGlEsVersion >= 0x20000;
-        if (supportsEs2)
-        {
-            glSurfaceView.setEGLContextClientVersion(2);
-            glSurfaceView.setRenderer(menu);//It is important to do this here!
-            /*Add in the touch interface*/
-            glSurfaceView.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent e) {
-                    if(e!=null){
-                        float x = (((e.getX()/((float)v.getWidth()))*2)-1);
-                        float y = -((e.getY()/((float)v.getHeight()))*2)+1;
-                        if(e.getAction()== MotionEvent.ACTION_DOWN){
-                            menu.touch(x, y);
-                        }
-                        return true;
-                    }
-                    return false;
-                }
-            });
-        }
-        else
-        {
-            return;
-        }
     }
-
     @Override
     protected void onPause() {
         super.onPause();
-        menu.onPause();
+        glSurfaceView.onPause();
     }
     @Override
     public void onResume(){
@@ -96,8 +61,7 @@ public class Main extends Activity {
     }
     @Override
     public void onDestroy(){
+        glSurfaceView.onDestroy();
         super.onDestroy();
-        menu.onDestroy();
-
     }
 }
