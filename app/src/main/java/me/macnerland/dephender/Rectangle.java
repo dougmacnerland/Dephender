@@ -11,6 +11,7 @@ import java.nio.ShortBuffer;
 
 /**
  * Created by Doug on 8/19/2015.
+ * A geometric rectangle that supports the render() function
  */
 public class Rectangle {
 
@@ -178,7 +179,7 @@ public class Rectangle {
             case 1:
                 colorSolid(1.0f, 1.0f, 1.0f, 1.0f);//specifies values for texturization
                 break;
-            default:
+            case 2:
                 colorRandomSolid();
                 break;
         }
@@ -422,6 +423,29 @@ public class Rectangle {
             color.put((i * 4), r + (changeR * colorConstR));
             color.put((i * 4) + 1, g + (changeG * colorConstG));
             color.put((i * 4) + 2, b + (changeB * colorConstB));
+        }
+    }
+    /*these need to be doubles for sure*/
+    public void trigShimmer(float baseR, double dr, float ampr, float  baseG, double dg, float ampg, float baseB, double db, float ampb){
+        for(int i = 0; i < 4; i++) {
+            color.put((i * 4), (float)(baseR+(ampr*Math.sin(dr*System.currentTimeMillis()))));
+            color.put((i * 4) + 1, (float)(baseG+(ampg*Math.sin(dg*System.currentTimeMillis()))));
+            color.put((i * 4) + 2, (float)(baseB+(ampb*Math.sin(db*System.currentTimeMillis()))));
+        }
+    }
+    public void trigRedShimmer(float dr, float ampr){
+        for(int i = 0; i < 4; i++) {
+            color.put((i * 4), (float)(0.5+(ampr*Math.sin(dr*System.currentTimeMillis()))));
+        }
+    }
+    public void trigGreenShimmer(float dg, float ampg){
+        for(int i = 0; i < 4; i++) {
+            color.put((i * 4) + 1, (float)(0.5+(ampg*Math.sin(dg*System.currentTimeMillis()))));
+        }
+    }
+    public void trigBlueShimmer(float db, float ampb){
+        for(int i = 0; i < 4; i++) {
+            color.put((i * 4) + 2, (float)(0.5+(ampb*Math.sin(db*System.currentTimeMillis()))));
         }
     }
 

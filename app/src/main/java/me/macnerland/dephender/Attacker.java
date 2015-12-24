@@ -21,7 +21,10 @@ public class Attacker extends Rectangle {
 
     public int fadeType;
     public long fadeBirth;
-    public float frequency;
+
+    public enum difficulty{
+
+    }
 
     Attacker(int program, float left_, float right_, float top_, float bottom_, float sizeRatio, int coloration, int tex){
         super(program, new float[]{-1.0f, -1.0f, -1.0f,
@@ -41,6 +44,27 @@ public class Attacker extends Rectangle {
         moveOffset = 0.0f;
         genCoords();
         birthTime = SystemClock.uptimeMillis();
+    }
+
+    public void setDifficulty(int fade, int mve){
+        fadeType = fade;
+        moveType = mve;
+        /*0 <= moveType <= 3*/
+        //float r = (float)Math.sin((moveType / 4) * 2 * Math.PI);
+        float r = (float)moveType/4;
+        float g = 1.0f-r;
+        //float g = (float)Math.cos((moveType / 4) * 2 * Math.PI);
+        float b = ((float)fadeType)/3;
+
+        r = r + 1;
+        r = r / 2;
+
+        g = g + 1;
+        g = g / 2;
+
+        float a = 1.0f;
+        colorSolid(r, g, b, a);
+
     }
 
     /*move depending on the movetype*/
@@ -213,7 +237,7 @@ public class Attacker extends Rectangle {
     }
 
     /*Attacker will flash a speed at a frequency*/
-    public void fadeBlink(){
+    public void fadeBlink(float frequency){
         for(int i=0; i<4; i++){
             color.put(((i*4)+3), (float)Math.abs(Math.sin(frequency*0.02*SystemClock.uptimeMillis())));
         }
@@ -236,33 +260,20 @@ public class Attacker extends Rectangle {
     }
 
     /*Fade the Attacker*/
-    public void fade(float toX, float toY, float surprise, float revealDist){
+    public void fade(float toX, float toY, float surprise, float revealDist, float freq){
         switch(fadeType){
-            case 4:
+            case 1:
                 fadeIn(toX, toY, surprise, revealDist);
                 break;
-            case 5:
-                fadeBlink();
+            case 2:
+                fadeBlink(freq);
                 break;
-            case 6:
+            case 3:
                 fadeOut(toX, toY, surprise/3.0f, revealDist/1.3f);
                 break;
         }
     }
 
-    /*Initialize the fade abilities of the attacker*/
-    public void fadeInit(float toX, float toY){
-        switch(fadeType){
-            case 4:
-                frequency = 100000.0f;
-                fadeBirth = SystemClock.uptimeMillis();
-                break;
-            case 5:
-                frequency = (float)(1.0f+Math.random());
-                fadeBirth = SystemClock.uptimeMillis();
-                break;
-        }
-    }
 
     /*reset the birthtime of the Attacker*/
     public void resetBirth(){

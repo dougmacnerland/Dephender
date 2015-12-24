@@ -7,8 +7,6 @@ import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 import android.os.SystemClock;
 
-import java.io.IOException;
-
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
@@ -23,7 +21,7 @@ public class MenuRenderer implements GLSurfaceView.Renderer{
     private float[] mMVPMatrix = new float[16];//Model, View, Projection matrix
 
     private int programHandle;
-    private static Attacker[] invader = new Attacker[10];
+    private static Attacker[] invader = new Attacker[20];
     private static Rectangle back;//do these need to be static?
     private static Rectangle newGame;
     private static Rectangle hiScore;
@@ -35,6 +33,8 @@ public class MenuRenderer implements GLSurfaceView.Renderer{
     private static Rectangle currentScore;
     private static Rectangle pauseMenu;
     private static Rectangle pauseButton;
+    private static Rectangle title1;
+    private static Rectangle title2;
     private static int GameState;
     private static float Ratio;
     private boolean newHigh;
@@ -53,11 +53,15 @@ public class MenuRenderer implements GLSurfaceView.Renderer{
     private int currentScoreHandle;
     private int textHandle;
     private int newGameHandle;
+    private int BubbleTitleHandle;
+    private int SaviorHandle;
 
     private float left;
     private float right;
     private float nRatio;
     private Context cont;
+    private int level;
+
 
     public MenuRenderer(Context c){
         pref = c.getSharedPreferences("score", 0);
@@ -66,6 +70,7 @@ public class MenuRenderer implements GLSurfaceView.Renderer{
         high = pref.getInt("highScore", 0);
         xOsc = false;
         yOsc = false;
+        level = 0;
     }
 
     @Override
@@ -109,6 +114,7 @@ public class MenuRenderer implements GLSurfaceView.Renderer{
 
         // Tell OpenGL to use this program when rendering.
         GLES20.glUseProgram(programHandle);
+
         newGameHandle = Gleshelp.loadTexture(cont, R.drawable.start);
         whiteHandle = Gleshelp.loadTexture(cont, R.drawable.white);
         illiniHandle = Gleshelp.loadTexture(cont, R.drawable.chief_illiniwek);
@@ -117,16 +123,18 @@ public class MenuRenderer implements GLSurfaceView.Renderer{
         currentScoreHandle = Gleshelp.loadTexture(cont, R.drawable.score);
         pauseButtonHandle = Gleshelp.loadTexture(cont, R.drawable.pause_a);
         pauseMenuHandle = Gleshelp.loadTexture(cont, R.drawable.paused);
+        BubbleTitleHandle = Gleshelp.loadTexture(cont, R.drawable.bubblesmall);
+        SaviorHandle = Gleshelp.loadTexture(cont, R.drawable.savior);
     }
     @Override
-    public void onSurfaceChanged(GL10 glUnused, int width, int height){
+    public void onSurfaceChanged(GL10 glUnused, int width, int height) {
         GLES20.glViewport(0, 0, width, height);
         Ratio = (float) width / height;
         nRatio = Ratio;
-        if(nRatio>1.0f){
-            nRatio = 1/nRatio;
+        if (nRatio > 1.0f) {
+            nRatio = 1 / nRatio;
         }
-        nRatio = nRatio*nRatio;
+        nRatio = nRatio * nRatio;
 
         left = -Ratio;
         right = Ratio;
@@ -135,6 +143,30 @@ public class MenuRenderer implements GLSurfaceView.Renderer{
         final float top = 1.0f;
         final float near = 0.0f;
         final float far = 5.0f;
+
+        if (title1 == null) {
+                title1 = new Rectangle(programHandle, new float[]{-0.65f, 0.3f, 0.0f,
+                        0.65f, 0.3f, 0.0f,
+                        0.65f, 0.7f, 0.0f,
+                        -0.65f, 0.7f, 0.0f},
+                        new float[]{1.0f, 0.0f, 0.0f, 1.0f,
+                                1.0f, 0.0f, 0.0f, 1.0f,
+                                1.0f, 0.0f, 0.0f, 1.0f,
+                                1.0f, 0.0f, 0.0f, 1.0f}, 3, BubbleTitleHandle);
+            //title1.colorSolid(1.0f, 1.0f, 1.0f, 1.0f);
+
+        }
+
+        if(title2 == null){
+            title2 = new Rectangle(programHandle, new float[]{-0.65f, -0.2f, 0.0f,
+                    0.65f, -0.2f, 0.0f,
+                    0.65f, 0.4f, 0.0f,
+                    -0.65f, 0.4f, 0.0f},
+                    new float[]{1.0f, 0.0f, 0.0f, 1.0f,
+                            1.0f, 0.0f, 0.0f, 1.0f,
+                            1.0f, 0.0f, 0.0f, 1.0f,
+                            1.0f, 0.0f, 0.0f, 1.0f}, 3, SaviorHandle);
+        }
 
         if(back == null) {
             back = new Rectangle(programHandle, new float[]{left, -1.0f, -1.0f,
@@ -165,10 +197,10 @@ public class MenuRenderer implements GLSurfaceView.Renderer{
                                                            left+(0.25f/nRatio), 1.0f-(0.009f/nRatio), -0.5f,
                                                            left+(0.009f/nRatio), 1.0f-(0.009f/nRatio), -0.5f}, 1, hiScoreHandle);
         if(newGame == null) {
-            newGame = new Rectangle(programHandle, new float[]{-0.2f, 0.0f, -0.5f,
-                    0.2f, 0.0f, -0.5f,
-                    0.2f, 0.2f, -0.5f,
-                    -0.2f, 0.2f, -0.5f}, 1, newGameHandle);
+            newGame = new Rectangle(programHandle, new float[]{-0.2f, -0.6f, -0.5f,
+                    0.2f, -0.6f, -0.5f,
+                    0.2f, -0.4f, -0.5f,
+                    -0.2f, -0.4f, -0.5f}, 1, newGameHandle);
         }
         target = new Rectangle(programHandle, new float[]{left*0.2f*nRatio, -Ratio*0.2f*nRatio, -0.3f,
                 right*0.2f*nRatio, -Ratio*0.2f*nRatio, -0.3f,
@@ -226,22 +258,40 @@ public class MenuRenderer implements GLSurfaceView.Renderer{
         GLES20.glUseProgram(programHandle);
         Matrix.setIdentityM(mModelMatrix, 0);
 
+        back.trigShimmer(0.5f, 0.001, 0.5f, 0.5f, 0.002, 0.5f, 0.9f, 0.004, 0.1f);
         back.render(mModelMatrix, mViewMatrix, mProjectionMatrix, mMVPMatrix);
         hiScore.render(mModelMatrix, mViewMatrix, mProjectionMatrix, mMVPMatrix);
         HighScore.render(mModelMatrix, mViewMatrix, mProjectionMatrix, mMVPMatrix);
-        back.smoothShimmer(0.0013f, 0.0007f, 0.0017f);
+
         switch(GameState) {
             case 0:
+                title1.trigShimmer(0.9f, 0.005, 0.1f, 0.1f, 0.0025, 0.1f, 0.9f, 0.003, 0.1f);
+                title1.render(mModelMatrix, mViewMatrix, mProjectionMatrix, mMVPMatrix);
+                title2.trigShimmer(0.1f, 0.004, 0.1f, 0.9f, 0.002, 0.1f, 0.5f, 0.001, 0.5f);
+                title2.render(mModelMatrix, mViewMatrix, mProjectionMatrix, mMVPMatrix);
                 newGame.render(mModelMatrix, mViewMatrix, mProjectionMatrix, mMVPMatrix);
                 break;
             case 1:
+                gameRender();
+                break;
+            case 2:
+                pauseMenu.render(mModelMatrix, mViewMatrix, mProjectionMatrix, mMVPMatrix);
+                break;
+
+        }
+    }
+
+    public void gameRender(){
+        switch(level){
+            default:
                 pauseButton.render(mModelMatrix, mViewMatrix, mProjectionMatrix, mMVPMatrix);
 
                 score.render(mModelMatrix, mViewMatrix, mProjectionMatrix, mMVPMatrix);
 
                 currentScore.render(mModelMatrix, mViewMatrix, mProjectionMatrix, mMVPMatrix);
 
-                target.smoothShimmer(0.13f, 0.07f, 0.05f);
+                //target.smoothShimmer(0.13f, 0.07f, 0.05f);
+                target.trigShimmer(0.5f, 0.0001f, 0.5f, 0.5f, 0.0001f, 0.5f, 0.5f, 0.0001f, 0.1f);
                 if(!xOsc&&score.getNumber()>=300&&(Math.sin((SystemClock.uptimeMillis()*0.001))<=0.1&&(Math.sin((SystemClock.uptimeMillis()*0.001))>=-0.1f))){
                     yOsc=true;
                 }
@@ -278,17 +328,155 @@ public class MenuRenderer implements GLSurfaceView.Renderer{
                     } else {
                         //int moveType = (int)(Math.random()*score.getNumber()*0.015);
                         i.move(0.0001f + (0.0000001f * score.getNumber()), target.centerX, target.centerY);
-                        i.fade(target.centerX, target.centerY, 50.0f, 0.75f);
+                        i.fade(target.centerX, target.centerY, 50.0f, 0.75f, 0.03f);
                         i.render(mModelMatrix, mViewMatrix, mProjectionMatrix, mMVPMatrix);
                     }
                 }
                 break;
-            case 2:
-                pauseMenu.render(mModelMatrix, mViewMatrix, mProjectionMatrix, mMVPMatrix);
+            case 1:
+                target.render(mModelMatrix, mViewMatrix, mProjectionMatrix, mMVPMatrix);
+                pauseButton.render(mModelMatrix, mViewMatrix, mProjectionMatrix, mMVPMatrix);
+                score.render(mModelMatrix, mViewMatrix, mProjectionMatrix, mMVPMatrix);
+                currentScore.render(mModelMatrix, mViewMatrix, mProjectionMatrix, mMVPMatrix);
+
+                for (Attacker i : invader) {
+                    if (target.isWithin(i.centerX, i.centerY, 0.09f, 0.09f)) {
+                        score.reset();
+                        xOsc=false;
+                        yOsc=false;
+                        GameState = 0;
+                        for (Attacker j : invader) {
+                            j.genCoords();
+                            j.moveType=0;
+                            j.fadeType=0;
+                            j.fadeReset();
+                        }
+                        target.moveTo(0.0f,0.0f);
+                        break;
+                    } else {
+                        //int moveType = (int)(Math.random()*score.getNumber()*0.015);
+                        i.move(0.0001f + (0.0000002f * score.getNumber()), target.centerX, target.centerY);
+                        i.fade(target.centerX, target.centerY, 50.0f, 0.75f, 0.03f);
+                        i.render(mModelMatrix, mViewMatrix, mProjectionMatrix, mMVPMatrix);
+                    }
+                }
                 break;
 
         }
     }
+    public void gameTouch(float x, float y){
+        switch(level){
+            /*todo: implement a k-d tree to search through the dimensions and find the nearest invader.
+            * or would that make things better? the invaders constantly move and change position
+            * so sorting would be difficult.*/
+            case 0:
+                for (int i = invader.length - 1; i >= 0; i--) {
+                    if ((invader[i].isWithin(x, y, 0.1f, 0.1f))) {
+
+                        invader[i].genCoords();
+                        invader[i].fadeReset();
+                        //invader[i].moveType=(int)(Math.random()*logistic(4.0f, 0.01f, score.getNumber(), 250.0f));
+                        //invader[i].fadeType = (int)(Math.random()*logistic(7.0f, 0.005f, score.getNumber(), 250.0f));
+
+                        invader[i].setDifficulty(((int) (Math.random() * logistic(4.0f, 0.01f, score.getNumber(), 250.0f))),
+                                ((int) ((Math.random() * logistic(4.0f, 1f, score.getNumber(), 250.0f)))));
+                        invader[i].moveInit(target.centerX, target.centerY);
+
+                        score.increment(1);
+                        if(score.getNumber()>HighScore.getNumber()){
+                            HighScore.increment(1);
+                        }
+                        return;
+                    }
+                }
+                if(pauseButton.isWithin(x, y, 0.0f, 0.0f)){
+                    GameState = 2;
+                }
+                break;
+            case 1:
+                for(int i = invader.length - 1; i >= 0; i--) {
+                    if (invader[i].isWithin(x, y, 0.1f, 0.1f)) {
+                        invader[i].genCoords();
+                        invader[i].fadeReset();
+
+                        if (score.getNumber() < 20) {
+                            invader[i].setDifficulty(0, 0);
+                        } else {
+                            invader[i].setDifficulty(0, (int) (Math.random() * 2));
+                        }
+
+                        score.increment(1);
+                        if (score.getNumber() > HighScore.getNumber()) {
+                            HighScore.increment(1);
+                        }
+                        return;
+                    }
+                }
+                if(pauseButton.isWithin(x, y, 0.0f, 0.0f)){
+                    GameState = 2;
+                }
+                break;
+            case 2:
+                for(int i = invader.length - 1; i >= 0; i--) {
+                    if (invader[i].isWithin(x, y, 0.1f, 0.1f)) {
+                        invader[i].genCoords();
+                        invader[i].fadeReset();
+
+                        //todo make difficult
+
+
+                        score.increment(1);
+                        if (score.getNumber() > HighScore.getNumber()) {
+                            HighScore.increment(1);
+                        }
+                        return;
+                    }
+                }
+                if(pauseButton.isWithin(x, y, 0.0f, 0.0f)){
+                    GameState = 2;
+                }
+                break;
+            case 3:
+                for(int i = invader.length - 1; i >= 0; i--) {
+                    if (invader[i].isWithin(x, y, 0.1f, 0.1f)) {
+                        invader[i].genCoords();
+                        invader[i].fadeReset();
+
+                        invader[i].setDifficulty(0, 3);
+
+                        score.increment(1);
+                        if (score.getNumber() > HighScore.getNumber()) {
+                            HighScore.increment(1);
+                        }
+                        return;
+                    }
+                }
+                if(pauseButton.isWithin(x, y, 0.0f, 0.0f)){
+                    GameState = 2;
+                }
+                break;
+            case 4:
+                for(int i = invader.length - 1; i >= 0; i--) {
+                    if (invader[i].isWithin(x, y, 0.1f, 0.1f)) {
+                        invader[i].genCoords();
+                        invader[i].fadeReset();
+
+                        invader[i].setDifficulty(2, 1);
+
+                        score.increment(1);
+                        if (score.getNumber() > HighScore.getNumber()) {
+                            HighScore.increment(1);
+                        }
+                        return;
+                    }
+                }
+                if(pauseButton.isWithin(x, y, 0.0f, 0.0f)){
+                    GameState = 2;
+                }
+                break;
+        }
+    }
+
     private float logistic(float max, float steepness, float x, float mid){
         return (float)(max/(1.0f+(Math.exp((-1.0f*steepness*(x-mid))))));
     }
@@ -318,31 +506,10 @@ public class MenuRenderer implements GLSurfaceView.Renderer{
                 }
                 break;
 
-            case 1://active game
-
-
-                for (int i = invader.length - 1; i >= 0; i--) {
-                    if ((invader[i].isWithin(x, y, 0.1f, 0.1f))) {
-
-                        invader[i].genCoords();
-                        invader[i].fadeReset();
-                        invader[i].moveType=(int)(Math.random()*logistic(4.0f, 0.01f, score.getNumber(), 250.0f));
-                        invader[i].fadeType = (int)(Math.random()*logistic(7.0f, 0.005f, score.getNumber(), 250.0f));
-                        invader[i].fadeInit(0.0f, 0.0f);//needed?
-                        invader[i].moveInit(target.centerX, target.centerY);
-
-                        score.increment(1);
-                        if(score.getNumber()>HighScore.getNumber()){
-                            HighScore.increment(1);
-                        }
-                        return;
-                    }
-                }
-                if(pauseButton.isWithin(x, y, 0.0f, 0.0f)){
-                    GameState = 2;
-                }
+            case 1://active gameRender
+                gameTouch(x, y);
                 break;
-            case 2:
+            case 2://pause
                 for (int i = invader.length - 1; i >= 0; i--) {
                     invader[i].resetBirth();
                 }
