@@ -117,7 +117,7 @@ public class MenuRenderer implements GLSurfaceView.Renderer{
 
         newGameHandle = Gleshelp.loadTexture(cont, R.drawable.start);
         whiteHandle = Gleshelp.loadTexture(cont, R.drawable.white);
-        illiniHandle = Gleshelp.loadTexture(cont, R.drawable.chief_illiniwek);
+        illiniHandle = Gleshelp.loadTexture(cont, R.drawable.bubble_enemy);
         textHandle = Gleshelp.loadTexture(cont, R.drawable.arial_small);
         hiScoreHandle = Gleshelp.loadTexture(cont, R.drawable.high_score);
         currentScoreHandle = Gleshelp.loadTexture(cont, R.drawable.score);
@@ -205,7 +205,7 @@ public class MenuRenderer implements GLSurfaceView.Renderer{
         target = new Rectangle(programHandle, new float[]{left*0.2f*nRatio, -Ratio*0.2f*nRatio, -0.3f,
                 right*0.2f*nRatio, -Ratio*0.2f*nRatio, -0.3f,
                 right*0.2f*nRatio, Ratio*0.2f*nRatio, -0.3f,
-                left*0.2f*nRatio, Ratio*0.2f*nRatio, -0.3f}, 1, whiteHandle);
+                left*0.2f*nRatio, Ratio*0.2f*nRatio, -0.3f}, 1, illiniHandle);
 
         if(score == null) {
             score = new Counter(programHandle, "0", new float[]{left+(0.25f/nRatio), -1.0f+(0.009f/nRatio), -0.5f,
